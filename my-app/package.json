@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
     "json-server": "^0.17.4",
     "next": "14.2.6",
