@@ -1,3 +1,5 @@
+// ? ini create User dipisah
+
 "use server";
 
 import { BASE_URL } from "./constants";
@@ -10,11 +12,11 @@ interface PropsFormDataUser {
 }
 
 export const createUserAction = async (rawFormData: PropsFormDataUser) => {
-  const res = await fetch(BASE_URL + "/register", {
+  const res = await fetch(BASE_URL + "/api/users", {
     method: "POST",
     body: JSON.stringify(rawFormData),
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 };
