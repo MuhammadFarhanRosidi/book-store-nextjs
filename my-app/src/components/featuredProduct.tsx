@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function FeaturedProducts() {
   return (
     <section className="mx-auto py-12 md:px-8 px-4 xl:px-0">
@@ -7,10 +9,11 @@ export default function FeaturedProducts() {
             Our Showcase
           </h3>
           <p className="text-base leading-lg text-gray-500">
-            They built amazing website to help more people around the world
+            They sell amazing books to help more people around the world
             <br className="hidden md:block" />
             by using our recommendation services and products
           </p>
+          <Link href={`/products`}>See More</Link>
         </div>
         <div className="flex flex-wrap gap-y-8 lg:flex-row justify-center gap-x-7 items-center">
           <div className="group relative ">
