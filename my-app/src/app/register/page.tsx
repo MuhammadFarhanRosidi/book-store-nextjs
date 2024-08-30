@@ -1,31 +1,54 @@
+import { BASE_URL } from "@/constants";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+
 export default function Register() {
+  const createUser = async (formData: FormData) => {
+    "use server";
+    const rawFormData = {
+      name: formData.get("name"),
+      username: formData.get("username"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    const res = await fetch(BASE_URL + "/api/users", {
+      method: "POST",
+      body: JSON.stringify(rawFormData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    redirect("/login");
+  };
   return (
     <>
       {/* Navbar */}
-      <div className="navbar items-center p-6 flex flex-row justify-between">
+      <div className="navbar bg-white items-center p-6 flex flex-row justify-between sticky inset-x-0 top-0">
         <div className="logo flex flex-row justify-center items-center gap-x-2">
-          <h2 className="font-bold logo text-2xl text-indigo-950">FarBook</h2>
+          <Link href={`/`} className="font-bold logo text-2xl text-indigo-950">
+            FarBook
+          </Link>
         </div>
         <div className="hidden lg:flex flex-row gap-x-3">
-          <a
-            href=""
+          <Link
+            href={`/register`}
             className="md:w-fit w-full text-center px-7 rounded-full text-base py-3 font-semibold text-indigo-950 bg-white"
           >
             Sign Up
-          </a>
-          <a
-            href=""
+          </Link>
+          <Link
+            href={`/login`}
             className="md:w-fit w-full text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700"
           >
             Login
-          </a>
+          </Link>
         </div>
       </div>
       {/* End of Navbar */}
 
-      <div className="gap-y-16 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto gap-x-10 xl:gap-x-28 p-10 items-center xl:p-20">
+      <div className="gap-y-16 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto gap-x-10 xl:gap-x-28 p-10 items-center xl:px-20">
         <div className="bg-white p-10 rounded-2xl">
-          <form action="#">
+          <form action={createUser}>
             <div className="flex flex-col gap-y-7">
               <h3 className="xl:text-4xl md:text-3xl text-2xl text-indigo-950 font-bold leading-relaxed">
                 Sign Up &amp; Become <br className="lg:block hidden" /> Book
@@ -36,6 +59,7 @@ export default function Register() {
                   Name
                 </p>
                 <input
+                  name="name"
                   type="text"
                   className="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                 />
@@ -45,6 +69,7 @@ export default function Register() {
                   Username
                 </p>
                 <input
+                  name="username"
                   type="text"
                   className="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                 />
@@ -54,6 +79,7 @@ export default function Register() {
                   Email Address
                 </p>
                 <input
+                  name="email"
                   type="email"
                   className="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                 />
@@ -63,6 +89,7 @@ export default function Register() {
                   Password
                 </p>
                 <input
+                  name="password"
                   type="password"
                   className="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                 />
@@ -77,12 +104,12 @@ export default function Register() {
                 </p>
               </div>
               <div className="flex flex-col gap-y-4">
-                <a
-                  href=""
+                <button
+                  type="submit"
                   className=" w-full text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700"
                 >
                   Sign Up
-                </a>
+                </button>
                 <a
                   href=""
                   className=" w-full flex flex-row justify-center px-7 gap-x-2 items-center rounded-full text-base py-3 font-semibold text-indigo-950 border border-gray-300"
