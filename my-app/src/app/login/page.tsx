@@ -1,31 +1,85 @@
-export default function LoginForm() {
+import { BASE_URL } from "@/constants";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+
+export interface MyResponse {
+  access_token: string;
+}
+
+export default function LoginForm({
+  searchParams,
+}: {
+  searchParams: { error: string };
+}) {
+  const handleLogin = async (formData: FormData) => {
+    "use server";
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const res = await fetch(BASE_URL + "/api/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await res.json();
+    if (!res.ok) {
+      return redirect("/login?error=" + result.message);
+    }
+    cookies().set("Authorization", `Bearer ${result.access_token}`);
+    return redirect("/products");
+  };
   return (
     <>
       {/* NavBar */}
-      <div className="navbar items-center p-6 flex flex-row justify-between">
+      <div className="navbar bg-white items-center p-6 flex flex-row justify-between sticky top-0 inset-x-0">
         <div className="logo flex flex-row justify-center items-center gap-x-2">
-          <h2 className="font-bold logo text-2xl text-indigo-950">FarBook</h2>
+          <Link href={`/`} className="font-bold logo text-2xl text-indigo-950">
+            FarBook
+          </Link>
         </div>
         <div className="hidden lg:flex flex-row gap-x-3">
-          <a
-            href=""
+          <Link
+            href={`/login`}
             className="md:w-fit w-full text-center px-7 rounded-full text-base py-3 font-semibold text-indigo-950 bg-white"
           >
             Login
-          </a>
-          <a
-            href=""
+          </Link>
+          <Link
+            href={`/register`}
             className="md:w-fit w-full text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
       </div>
       {/* End of NavBar */}
 
-      <div className="gap-y-16 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto gap-x-10 xl:gap-x-28 p-10 items-center xl:p-20">
+      <div className="gap-y-16 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto gap-x-10 xl:gap-x-28 p-10 items-center xl:px-20">
         <div className="bg-white p-10 rounded-2xl">
-          <form action="#">
+          {searchParams.error ? (
+            <div role="alert" className="alert alert-error mb-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 shrink-0 stroke-current"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>{searchParams.error}</span>
+            </div>
+          ) : (
+            ""
+          )}
+
+          <form action={handleLogin}>
             <div className="flex flex-col gap-y-7">
               <h3 className="xl:text-4xl md:text-3xl text-2xl text-indigo-950 font-bold leading-relaxed">
                 Login Now &amp; <br className="lg:block hidden" /> Buy Faster
@@ -35,6 +89,7 @@ export default function LoginForm() {
                   Email Address
                 </p>
                 <input
+                  name="email"
                   type="text"
                   className="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                 />
@@ -44,7 +99,8 @@ export default function LoginForm() {
                   Password
                 </p>
                 <input
-                  type="text"
+                  name="password"
+                  type="password"
                   className="w-full py-3 rounded-full pl-5 pr-10 border border-gray-300 text-indigo-950 font-semibold"
                 />
                 <a href="#" className="text-sm text-blue-700 text-right mt-1">
@@ -52,12 +108,12 @@ export default function LoginForm() {
                 </a>
               </div>
               <div className="flex flex-col gap-y-4">
-                <a
-                  href=""
+                <button
+                  type="submit"
                   className=" w-full text-center px-7 rounded-full text-base py-3 font-semibold text-white bg-violet-700"
                 >
                   Login
-                </a>
+                </button>
                 <a
                   href=""
                   className=" w-full flex flex-row justify-center px-7 gap-x-2 items-center rounded-full text-base py-3 font-semibold text-indigo-950 border border-gray-300"
