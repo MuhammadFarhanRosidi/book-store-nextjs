@@ -1,11 +1,11 @@
-import ListProductCard from "@/components/listProductCard";
+import ListWishlistCard from "@/components/listWishlistCard";
 import ButtonLogout from "@/components/logoutButton";
 import Search from "@/components/search";
 import { ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-export interface Product {
+export interface Wishlist {
   _id: ObjectId;
   name: string;
   slug: string;
@@ -19,19 +19,19 @@ export interface Product {
   updatedAt: Date;
 }
 
-async function fetchProducts() {
-  const res = await fetch("http://localhost:3000/api/products", {
+async function fetchWishlist() {
+  const res = await fetch("http://localhost:3000/api/wishlist", {
     cache: "no-store",
     headers: {
       Cookie: cookies().toString(),
     },
   });
-  const data = await res.json();
-  return data;
+  // const data = await res.json();
+  // return data;
 }
 
-export default async function Products() {
-  const data = await fetchProducts();
+export default async function Wishlist() {
+  const data = await fetchWishlist();
   return (
     <section id="Dashboard" className="flex">
       {/* sidebar */}
@@ -225,22 +225,27 @@ export default async function Products() {
           <div className="content-header flex justify-between items-center">
             <div>
               <h1 className="font-extrabold text-[30px] leading-[45px]">
-                All Products
+                My Wishlist
               </h1>
-              <p className="leading-[21px] text-sm">You can add to wishlist</p>
+              <p className="leading-[21px] text-sm">
+                You can delete from your wishlist
+              </p>
             </div>
           </div>
 
-          {/* Product Container */}
+          {/* Wishlist Container */}
           <div
             className="flex justify-center flex-wrap gap-8 items-center h-[420px] mx-auto"
             id="taskWrapperEmpty"
           >
-            {/* Card Product */}
-            {data.map((el: Product) => {
-              return <ListProductCard key={`${el._id}`} product={el} />;
-            })}
+            {/* Card Wishlist */}
+            {/* {data.map((el: Wishlist) => {
+              return <ListWishlistCard key={`${el._id}`} wishlist={el} />;
+            })} */}
+            <h1>TESTTTTTT</h1>
+            {/* End of Card Wishlist */}
           </div>
+          {/* End of Wishlist Container*/}
         </div>
       </div>
     </section>
