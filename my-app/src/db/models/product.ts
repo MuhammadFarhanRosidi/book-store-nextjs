@@ -36,7 +36,6 @@ export const getAllProducts = async () => {
 };
 
 export const getProductById = async (_id: string) => {
-  console.log(_id, "id di model");
   const db = await getDb();
   const product = (await db
     .collection(COLLECTION_PRODUCTS)
