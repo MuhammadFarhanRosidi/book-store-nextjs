@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import AddToWishlist from "./addToWishlist";
 import DetailButton from "./seeDetailButton";
-import { Product } from "@/app/(auth)/products/page";
+import { Product } from "@/app/products/page";
 
 export default function ListProductCard({ product }: { product: Product }) {
   return (
@@ -17,7 +17,7 @@ export default function ListProductCard({ product }: { product: Product }) {
         <p className="font-bold text-xl leading-[30px]">{product.name}</p>
         <p className="font-bold text-xl leading-[30px]">Rp. {product.price}</p>
         <p className="text-sm text-taskia-grey leading-6">{product.excerpt}</p>
-        {product.tags.map((el) => {
+        {product.tags.map((el: string) => {
           return (
             <p className="text-center rounded-full border border-taskia-black w-full font-semibold">
               {el}
