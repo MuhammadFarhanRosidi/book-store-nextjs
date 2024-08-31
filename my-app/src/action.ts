@@ -20,3 +20,13 @@ export const createUserAction = async (rawFormData: PropsFormDataUser) => {
     },
   });
 };
+
+export const addWishlistAction = async (productId: string) => {
+  const res = await fetch(BASE_URL + `/api/wishlist/${productId}`, {
+    method: "POST",
+    body: JSON.stringify(productId),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
