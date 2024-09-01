@@ -5,18 +5,38 @@ import { ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import Link from "next/link";
 
-export interface Wishlist {
+// export interface Wishlist {
+//   _id: ObjectId;
+//   name: string;
+//   slug: string;
+//   description: string;
+//   excerpt: string;
+//   price: number;
+//   tags: string[];
+//   thumbnail: string;
+//   images: string[];
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
+export interface WishlistModel {
   _id: ObjectId;
-  name: string;
-  slug: string;
-  description: string;
-  excerpt: string;
-  price: number;
-  tags: string[];
-  thumbnail: string;
-  images: string[];
+  userId: ObjectId;
+  productId: ObjectId;
   createdAt: Date;
   updatedAt: Date;
+  product: {
+    _id: ObjectId;
+    name: string;
+    slug: string;
+    description: string;
+    excerpt: string;
+    price: number;
+    tags: string[];
+    thumbnail: string;
+    images: string[];
+    createdAt: Date;
+    updatedAt: Date;
+  };
 }
 
 async function fetchWishlist() {
@@ -26,8 +46,8 @@ async function fetchWishlist() {
       Cookie: cookies().toString(),
     },
   });
-  // const data = await res.json();
-  // return data;
+  const data = await res.json();
+  return data;
 }
 
 export default async function Wishlist() {
@@ -239,10 +259,10 @@ export default async function Wishlist() {
             id="taskWrapperEmpty"
           >
             {/* Card Wishlist */}
-            {/* {data.map((el: Wishlist) => {
+            {data.map((el: WishlistModel) => {
               return <ListWishlistCard key={`${el._id}`} wishlist={el} />;
-            })} */}
-            <h1>TESTTTTTT</h1>
+            })}
+            {/* <h1>TESTTTTTT</h1> */}
             {/* End of Card Wishlist */}
           </div>
           {/* End of Wishlist Container*/}
