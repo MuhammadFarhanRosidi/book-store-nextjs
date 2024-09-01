@@ -38,3 +38,5 @@ export const getUserByEmail = async (email: string) => {
   })) as UserModel;
   return user;
 };
+
+// export const getUserLogin = async()

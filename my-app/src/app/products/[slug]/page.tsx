@@ -35,6 +35,10 @@ export interface ProductModel {
   updatedAt: Date;
 }
 
+// export default async function getDataUserLogin({
+//   const res = await fetch(BASE_URL + "/api/login")
+// })
+
 export default async function DetailProduct({
   params,
 }: {
@@ -129,9 +133,9 @@ export default async function DetailProduct({
             Rp. {data.price}
           </p>
 
-          <form className="mt-10">
-            <AddToWishlist />
-          </form>
+          <div className="mt-10">
+            <AddToWishlist productId={String(data._id)} />
+          </div>
         </div>
 
         <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
