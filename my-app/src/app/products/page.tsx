@@ -1,6 +1,7 @@
 import ListProductCard from "@/components/listProductCard";
 import ButtonLogout from "@/components/logoutButton";
 import Search from "@/components/search";
+import { BASE_URL } from "@/constants";
 import { ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -20,7 +21,7 @@ export interface Product {
 }
 
 async function fetchProducts() {
-  const res = await fetch("http://localhost:3000/api/products", {
+  const res = await fetch(BASE_URL + "/api/products", {
     cache: "no-store",
     headers: {
       Cookie: cookies().toString(),

@@ -1,5 +1,6 @@
 "use client";
 
+import { BASE_URL } from "@/constants";
 import { redirect, useRouter } from "next/navigation";
 
 // async function handleDelete(id: string) {
@@ -14,7 +15,7 @@ import { redirect, useRouter } from "next/navigation";
 export default function RemoveWishlist({ productId }: { productId: string }) {
   const router = useRouter();
   async function handleDelete() {
-    const res = await fetch("http://localhost:3000/api/wishlist/" + productId, {
+    const res = await fetch(BASE_URL + "/api/wishlist/" + productId, {
       method: "DELETE",
     });
     const data = await res.json();
