@@ -53,6 +53,7 @@ async function fetchWishlist() {
 
 export default async function Wishlist() {
   const data = await fetchWishlist();
+  console.log(data, "data wishlist");
   return (
     <section id="Dashboard" className="flex">
       {/* sidebar */}

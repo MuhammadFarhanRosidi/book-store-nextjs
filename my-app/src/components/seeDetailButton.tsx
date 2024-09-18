@@ -1,6 +1,7 @@
 "use client";
 import { ObjectId } from "mongodb";
 import { useRouter } from "next/navigation";
+import AddToWishlist from "./addToWishlist";
 
 export interface Product {
   _id: ObjectId;

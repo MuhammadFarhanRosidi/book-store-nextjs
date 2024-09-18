@@ -20,8 +20,8 @@ export default async function AddToWishlist({
         // Cookie: cookies().toString(),
       },
     });
-    router.push("/wishlist");
     console.log(res);
+    router.push("/wishlist");
   };
 
   return (
